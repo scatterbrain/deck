@@ -18,8 +18,12 @@ var util = require('util');
 var app = express();
 
 // view engine setup
+var hbs = require('hbs');
+var hbsutils = require('hbs-utils')(hbs);
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+hbsutils.registerWatchedPartials(__dirname + '/views/partials');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));

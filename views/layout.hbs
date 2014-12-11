@@ -3,20 +3,17 @@
   <head>
     <title>{{title}}</title>
     <link href='http://fonts.googleapis.com/css?family=Marvel:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.7.0/codemirror.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
-
+    
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <div class="navbar">
-        {{#if user }}
-            <a href="/auth/logout" class="btn btn-primary"><span class="fa fa-facebook"></span> Sign Out</a>    
-        {{ else }}
-            <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Log In</a>
-        {{/if}}
-        </div>
+    {{> navbar }}
     {{{body}}}
+
   </body>
 </html>

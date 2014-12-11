@@ -15,6 +15,7 @@
     "express-session": "^1.9.3",
     "flux": "^2.0.1",
     "hbs": "~2.7.0",
+    "hbs-utils": "0.0.3",
     "jquery": "^2.1.1",
     "keymirror": "^0.1.0",
     "marked": "^0.3.2",

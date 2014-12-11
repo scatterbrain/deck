@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router(), 
-    React = require('react');
+    React = require('react'), 
+    util = require('util');
 
 // so that you are able to require() jsx files
 var jsx = require('node-jsx');
@@ -10,7 +11,6 @@ var editor = React.createFactory(require('./../public/javascripts/components/mar
 
 /* GET home page. */
 router.get('/', function(req, res) {
-
     var props = {};
     var editorContents = React.renderToString(editor(props));
     res.render('index', { title: 'Express', editor : editorContents });
