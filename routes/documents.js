@@ -1,9 +1,11 @@
 var express = require('express'), 
     router = express.Router(),
     util = require('util'),
-    Remote = require('../libs/remote'),     
     //Temporarily use the WriteStore on the server side as well
-    WriteStore = require('../public/javascripts/stores/write_store.js');
+    WriteStore = require('../public/javascripts/stores/write_store.js'), 
+    GitDocument = require('../models/git_document'), 
+    Remote = require('../libs/remote');
+    
 
 router.get('/', function(req, res) {
     var remote, cmd, replyDoc;
@@ -42,24 +44,9 @@ router.post('/', function(req, res) {
     WriteStore.receiveDocument(req.body);
     validatedDocument = WriteStore.getDocument(); 
     res.setHeader('Content-Type', 'application/json');   
+    GitDocument.commit(validatedDocument);
     res.send(JSON.stringify(validatedDocument));
-
-    //Save to git
-    rabbitDoc = { cmd : "commit", doc : validatedDocument};
-    remote = Remote.createRemote('doc.request');
-    //Remote connection established, write request
-    remote.on('ready', function() {
-        remote.write(JSON.stringify(rabbitDoc));
-    });
-    remote.on('error', function(error) {
-        console.log("Error occurred" + error);
-        remote.close();      
-    });
-    //When we receive reply data
-    remote.on('data', function(data) {
-        remote.close();
-    });
-    remote.connect();
+    
 });
 
 module.exports = router;
