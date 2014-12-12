@@ -8,11 +8,11 @@ function RemoteGitDocument() {
 
 util.inherits(RemoteGitDocument, EventEmitter);
 
-RemoteGitDocument.prototype.get = function() {
+RemoteGitDocument.prototype.get = function(repoId) {
     var cmd, replyDoc, self;
     self = this;
     //Read from git
-    cmd = { cmd : "read" };
+    cmd = { cmd : "read", id : repoId };
     //Remote connection established, write request
     this.remote.on('ready', function() {
         self.remote.write(JSON.stringify(cmd));

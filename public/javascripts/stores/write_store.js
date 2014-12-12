@@ -2,9 +2,9 @@
 
 var WriteDispatcher = require('../dispatcher/write_dispatcher'),
     WriteConstants = require('../constants/write_constants'),
-//    WriteUtils = require('../utils/write_utils'),
     EventEmitter = require('events').EventEmitter,
     assign = require('object-assign'),
+    util = require('util'),
 
     ActionTypes = WriteConstants.ActionTypes,
     CHANGE_EVENT = 'change';
@@ -27,9 +27,9 @@ var WriteStore = assign({}, EventEmitter.prototype, {
 
     createDocument : function(text) {
         _currentDocument = {
-            id : 'm_' + Date.now(),
+            id : null,
             text : text, 
-            author : "Foo",
+            author : null
         };
     },
 
