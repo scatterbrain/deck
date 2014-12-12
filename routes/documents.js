@@ -12,7 +12,7 @@ var editor = React.createFactory(require('./../public/javascripts/components/mar
 router.get('/new', function(req, res) {
     var props = {};
     var editorContents = React.renderToString(editor(props));
-    res.render('new', { title: 'Express', editor : editorContents });
+    res.render('new_document', { title: 'Express', editor : editorContents });
 });
 
 router.get('/random', function(req, res) {
