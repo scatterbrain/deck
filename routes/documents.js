@@ -8,16 +8,8 @@ var express = require('express'),
     
 
 router.get('/', function(req, res) {
-    var remote, cmd, replyDoc;
-    //Read from git
-    cmd = { cmd : "read" };
-    remote = Remote.createRemote('doc.request');
-    //Remote connection established, write request
-    remote.on('ready', function() {
-        remote.write(JSON.stringify(cmd));
-    });
-    //When we receive reply data
-    remote.on('data', function(data) {
+    var gitDoc = GitDocument.connect();
+    gitDoc.on("data", function(data) {
       data = JSON.parse(data);
       replyDoc = WriteStore.getDocument();       
       if (data.result === 0) {
@@ -28,23 +20,17 @@ router.get('/', function(req, res) {
 
       res.setHeader('Content-Type', 'application/json');    
       res.send(JSON.stringify(replyDoc));
-      remote.close();
     });
-
-    remote.on('error', function(error) {
-        console.log("Error occurred" + error);
-        remote.close();
-    });
-
-    remote.connect();
+    gitDoc.get();
 });
 
 router.post('/', function(req, res) {
-    var validatedDocument, rabbitDoc, remote;
+    var validatedDocument, rabbitDoc, remote, gitDoc;
+    gitDoc = GitDocument.connect();
     WriteStore.receiveDocument(req.body);
     validatedDocument = WriteStore.getDocument(); 
     res.setHeader('Content-Type', 'application/json');   
-    GitDocument.commit(validatedDocument);
+    gitDoc.commit(validatedDocument);
     res.send(JSON.stringify(validatedDocument));
     
 });

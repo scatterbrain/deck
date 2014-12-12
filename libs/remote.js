@@ -19,7 +19,6 @@ RemoteConnection.prototype.connect = function() {
     });
     
     request.on("error", function(error) {
-      console.log("ERROR: " + error);
       self.emit('error', error);
     });
 
